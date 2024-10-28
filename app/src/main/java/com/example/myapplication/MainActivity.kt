@@ -16,5 +16,11 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val input = listOf(3, null, 1, 4, null,null,null, 2, 8)
+
+        val sorted = shakerSort(input)
+        val sorted2 = shakerSort(null)
+        println(sorted)
+        println(sorted2)
     }
 }
