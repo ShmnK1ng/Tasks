@@ -8,7 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
 
-    private val startTime: Long by CachedTimeDelegate
+    private val startTime by CachedTimeDelegate
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,10 +19,11 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        startTime.startLogging()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        CachedTimeDelegate.cancelLogging()
+        startTime.cancelLogging()
     }
 }

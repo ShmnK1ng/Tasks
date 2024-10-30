@@ -11,25 +11,35 @@ import kotlinx.coroutines.launch
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
-object CachedTimeDelegate : ReadOnlyProperty<Any?, Long> {
+object CachedTimeDelegate : CachedTimeProvider, ReadOnlyProperty<Any?, CachedTimeProvider> {
 
-    private var cachedTime: Long = System.currentTimeMillis()
-    private val coroutineScope = CoroutineScope(Dispatchers.Default + Job())
+    override val cachedTime: Long = System.currentTimeMillis()
+    private var coroutineScope: CoroutineScope? = null
 
-    init {
-        coroutineScope.launch {
-            while (isActive) {
-                Log.d("CachedTimeDelegate", "Application start time (cached): $cachedTime")
-                delay(3000)
+    override fun startLogging() {
+        if (coroutineScope == null) {
+            coroutineScope = CoroutineScope(Dispatchers.Default + Job())
+            coroutineScope?.launch {
+                while (isActive) {
+                    Log.d("CachedTimeDelegate", "Application start time (cached): $cachedTime")
+                    delay(3000)
+                }
             }
         }
     }
 
-    override fun getValue(thisRef: Any?, property: KProperty<*>): Long {
-        return cachedTime
+    override fun getValue(thisRef: Any?, property: KProperty<*>): CachedTimeProvider {
+        return this
     }
 
-    fun cancelLogging() {
-        coroutineScope.cancel()
+    override fun cancelLogging() {
+        coroutineScope?.cancel()
+        coroutineScope = null
     }
+}
+
+interface CachedTimeProvider {
+    val cachedTime: Long
+    fun startLogging()
+    fun cancelLogging()
 }
