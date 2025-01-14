@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="tv_fragment1">Fragment1</string>
+    <string name="fragment1_button_next">Next</string>
+    <string name="fragment1_button_back">Back</string>
+    <string name="tv_fragment2">Fragment2</string>
+    <string name="fragment2_button_next">Next</string>
+    <string name="fragment2_button_back">Back</string>
+    <string name="tv_fragment3">Fragment3</string>
+    <string name="fragment3_button_next">Next</string>
+    <string name="fragment3_button_back">Back</string>
 </resources>
