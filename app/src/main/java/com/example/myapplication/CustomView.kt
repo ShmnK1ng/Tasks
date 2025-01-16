@@ -13,6 +13,11 @@ class CustomView(
     attrs: AttributeSet? = null
 ) : View(context, attrs) {
 
+    companion object {
+        private const val PROGRESS_STEP = 10
+        private const val COLOR_RANGE = 256
+    }
+
     private var progress = 0
     private val filledPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
@@ -35,14 +40,14 @@ class CustomView(
     private fun getRandomColor(): Int {
         val random = Random(System.currentTimeMillis())
         return Color.rgb(
-            random.nextInt(256),
-            random.nextInt(256),
-            random.nextInt(256)
+            random.nextInt(COLOR_RANGE),
+            random.nextInt(COLOR_RANGE),
+            random.nextInt(COLOR_RANGE)
         )
     }
 
     fun incrementProgress() {
-        progress += 10
+        progress += PROGRESS_STEP
         if (progress > 100) progress = 0
         filledPaint.color = getRandomColor()
         invalidate()
