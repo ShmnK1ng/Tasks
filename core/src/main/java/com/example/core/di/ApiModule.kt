@@ -24,7 +24,7 @@ object ApiModule {
     @Provides
     @Singleton
     fun provideApi2(
-        @Named("retrofit2") retrofit: Retrofit
+        retrofit: Retrofit
     ): Api2 {
         return retrofit.create(Api2::class.java)
     }
