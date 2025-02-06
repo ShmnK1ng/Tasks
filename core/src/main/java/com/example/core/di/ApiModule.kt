@@ -11,14 +11,16 @@ import javax.inject.Singleton
 @Module
 object ApiModule {
 
+    @Retrofit1
     @Provides
     @Singleton
     fun provideApi1(
-        @Named("retrofit1") retrofit: Retrofit
+        retrofit: Retrofit
     ): Api1 {
         return retrofit.create(Api1::class.java)
     }
 
+    @Retrofit2
     @Provides
     @Singleton
     fun provideApi2(
