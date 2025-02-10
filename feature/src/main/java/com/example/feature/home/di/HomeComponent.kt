@@ -1,6 +1,8 @@
 package com.example.feature.home.di
 
 import com.example.core.di.CoreComponent
+import com.example.feature.home.presentation.HomeFragment
+import com.example.feature.home.presentation.HomeViewModel
 import dagger.Component
 import javax.inject.Scope
 
@@ -14,11 +16,12 @@ annotation class FeatureScope
     modules = [HomeModule::class]
 )
 interface HomeComponent {
-    fun inject()
+    fun inject(fragment: HomeFragment)
 
-    @Component.Builder
-    interface Builder {
-        fun coreComponent(coreComponent: CoreComponent): Builder
-        fun build(): HomeComponent
+    fun homeViewModelFactory(): HomeViewModel.Factory
+
+    @Component.Factory
+    interface Factory {
+        fun create(coreComponent: CoreComponent): HomeComponent
     }
 }
